@@ -1,7 +1,7 @@
 apiVersion: keda.sh/v1alpha1
 kind: TriggerAuthentication
 metadata:
-  name: trigger-auth-service-bus-orders
+  name: trigger-auth-service-bus-orders-wid
 spec:
   podIdentity:
     provider: azure-workload
@@ -9,7 +9,7 @@ spec:
 apiVersion: keda.sh/v1alpha1
 kind: ScaledObject
 metadata:
-  name: order-scaler
+  name: order-scaler-wid
 spec:
   scaleTargetRef:
     name: order-processor
@@ -18,8 +18,8 @@ spec:
   triggers:
   - type: azure-servicebus
     metadata:
-      namespace: <namespace-name>
+      namespace: fabmedical-aiw
       queueName: orders
       messageCount: '5'
     authenticationRef:
-      name: trigger-auth-service-bus-orders
+      name: trigger-auth-service-bus-orders-wid
