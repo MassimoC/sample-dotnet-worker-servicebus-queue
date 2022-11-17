@@ -5,6 +5,7 @@ metadata:
 spec:
   podIdentity:
     provider: azure-workload
+    identityId: 9c4f3781-ed9f-41a2-b8f1-c3fb193c5152
 ---
 apiVersion: keda.sh/v1alpha1
 kind: ScaledObject
@@ -13,13 +14,13 @@ metadata:
 spec:
   scaleTargetRef:
     name: order-processor
-  # minReplicaCount: 0 Change to define how many minimum replicas you want
+  minReplicaCount: 1
   maxReplicaCount: 10
   triggers:
   - type: azure-servicebus
     metadata:
       namespace: fabmedical-aiw
       queueName: orders
-      messageCount: '5'
+      messageCount: '50'
     authenticationRef:
       name: trigger-auth-service-bus-orders-wid
